@@ -1,0 +1,15 @@
+[project]
+name = "m7ga"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "blivedm",
+    "pyside6>=6.11.1",
+    "selenium>=4.44.0",
+    "webdriver-manager>=4.1.1",
+]
+
+[tool.uv.sources]
+blivedm = { git = "https://github.com/xfgryujk/blivedm.git", branch = "master" }
