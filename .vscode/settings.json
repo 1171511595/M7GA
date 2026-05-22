@@ -1,0 +1,7 @@
+{
+    "terminal.integrated.env.windows": {
+        "HTTP_PROXY": "http://127.0.0.1:9876",
+        "HTTPS_PROXY": "http://127.0.0.1:9876",
+        "ALL_PROXY": "http://127.0.0.1:9876"
+    }
+}

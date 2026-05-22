@@ -6,7 +6,7 @@ import http.cookies
 # 随机模块
 import random
 # 类型注解支持
-from typing import *
+from typing import Optional
 # 异步HTTP客户端，用于WebSocket/长连接
 import aiohttp
 # blivedm：核心客户端

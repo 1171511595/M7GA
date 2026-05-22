@@ -13,3 +13,8 @@ dependencies = [
 
 [tool.uv.sources]
 blivedm = { git = "https://github.com/xfgryujk/blivedm.git", branch = "master" }
+
+[tool.uv.workspace]
+members = [
+    "blivedm-dev",
+]
