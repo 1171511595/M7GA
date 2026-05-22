@@ -3,9 +3,7 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QSharedMemory
 
 from model.blivedmmodel import BLiveModel
-
 from modelview.blive import Blive
-
 from ui.MainWindow import MainWindow as MainWindow
 
 def main():
@@ -28,4 +26,5 @@ def main():
     sys.exit(app.exec())
 
 if __name__ == "__main__":
+
     main()
