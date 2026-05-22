@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "blivedm",
+    "pyinstaller>=6.20.0",
     "pyside6>=6.11.1",
     "selenium>=4.44.0",
     "webdriver-manager>=4.1.1",

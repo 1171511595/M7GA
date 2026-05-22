@@ -5,10 +5,10 @@
         "ALL_PROXY": "http://127.0.0.1:9876"
     },
     "terminal.integrated.env.osx": {
-        "http_proxy": "http://127.0.0.1:7890",
-        "https_proxy": "http://127.0.0.1:7890",
-        "HTTP_PROXY": "http://127.0.0.1:7890",
-        "HTTPS_PROXY": "http://127.0.0.1:7890",
+        "http_proxy": "http://127.0.0.1:9876",
+        "https_proxy": "http://127.0.0.1:9876",
+        "HTTP_PROXY": "http://127.0.0.1:9876",
+        "HTTPS_PROXY": "http://127.0.0.1:9876",
         "no_proxy": "localhost,127.0.0.1",
         "NO_PROXY": "localhost,127.0.0.1"
   }
