@@ -18,10 +18,13 @@ def main():
     # 启动应用程序
     app = QApplication(sys.argv)
 
-    model = BLiveModel()
-    blive = Blive(model)
+    # model = BLiveModel()
+    blive = Blive(BLiveModel())
     mainWindow = MainWindow(blive)
     mainWindow.show()
+    blive.start_blive()
+    # mainWindow.start_blive()
+
     sys.exit(app.exec())
 
 if __name__ == "__main__":

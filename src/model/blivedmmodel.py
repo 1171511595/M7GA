@@ -15,22 +15,20 @@ import blivedm
 # web_models：存放各种弹幕消息的数据结构
 import blivedm.models.web as web_models
 
-# class BLiveModel(QThread):
-class BLiveModel():
-    def __init__(self,bliveID:int,bliveSESSDATA:str):
-        # super.__init__()
-        # 初始化各类内变量
+class BLiveModel(QThread):
+# class BLiveModel():
+    def InitID(self,bliveID:int,bliveSESSDATA:str):
         self._bliveID = bliveID
         self._bliveSESSDATA = bliveSESSDATA
         self._session: Optional[aiohttp.ClientSession] = None
-        self._count = 0
-
+        
     # 信号：返回直播间心跳信息
-    result_heart = Signal(str);
+    result_heart = Signal(str)
 
     def run(self):
         """
         启动异步任务
+        这里是QThread的入口
         """
         asyncio.run(self.main())
 
@@ -64,8 +62,8 @@ class BLiveModel():
         # 以登录态session创建一个B站的直播客户端
         client = blivedm.BLiveClient(self._bliveID, session=self._session)
         # 绑定弹幕处理器
-        handler = self.MyHandler()
-        client.set_handler(handler)
+        self.handler = self.MyHandler(self)
+        client.set_handler(self.handler)
         #启动弹幕监听
         client.start()
         try:
@@ -88,11 +86,18 @@ class BLiveModel():
         #     print(f'[{client.room_id}] WATCHED_CHANGE: {command}')
         # _CMD_CALLBACK_DICT['WATCHED_CHANGE'] = __watched_change_callback  # noqa
 
+        def __init__(self,parentBlive:BLiveModel):
+            super().__init__()
+            self.model = parentBlive
+
+
         def _on_heartbeat(self, client: blivedm.BLiveClient, message: web_models.HeartbeatMessage):
             """
             心跳包
             """
             print(f'[{client.room_id}] 心跳')
+            # 通过Qt信号向外发送信息
+            self.model.result_heart.emit(f'[{client.room_id}] 心跳')
 
         def _on_danmaku(self, client: blivedm.BLiveClient, message: web_models.DanmakuMessage):
             """
@@ -128,10 +133,3 @@ class BLiveModel():
         #     if message.msg_type == 1:
         #         print(f'[{client.room_id}] {message.username} 进入房间')
 
-
-if __name__ == '__main__':
-    # Python异步程序的标准启动方式
-    # 自动创建事件循环并运行main
-    # asyncio.run(main())
-    threadBlive = BLiveModel(24056350,'8d936c43%2C1795006570%2Cca220%2A51')
-    threadBlive.run()
