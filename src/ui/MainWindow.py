@@ -24,11 +24,6 @@ class MainWindow(QMainWindow):
         self.ui.pushButton.clicked.connect(self.stop_bliveThread)
         # 开始线程
         self.ui.pushButton_2.clicked.connect(self.start_bliveThread)
-    # def start_blive(self):
-    #     self.thread_blivemodel = BLiveModel()
-    #     self.thread_blivemodel.InitID(24056350,'8d936c43%2C1795006570%2Cca220%2A51')
-    #     self.thread_blivemodel.result_heart.connect(self.on_recv_heart)
-    #     self.thread_blivemodel.start()
 
 
     def start_bliveThread(self):
