@@ -1,4 +1,4 @@
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtCore import QObject, Signal, Slot
 from src.model.blivedmmodel import BLiveModel
 
 class Blive(QObject):
@@ -10,14 +10,17 @@ class Blive(QObject):
         super().__init__()
         self._model = model
 
+    @Slot()
     def start_blive(self):
         self.thread_blivemodel = BLiveModel()
-        self.thread_blivemodel.InitID(24056350,'8d936c43%2C1795006570%2Cca220%2A51')
+        self.thread_blivemodel.InitID(10339509,'8d936c43%2C1795006570%2Cca220%2A51')
         self.thread_blivemodel.result_heart.connect(self.on_recv_heart)
         self.thread_blivemodel.start()
 
+    @Slot()
     def stop_blive(self):
-        print()
+        print("模型收到按钮的点击")
+        self.thread_blivemodel.stop_asyncio()
 
     def on_recv_heart(self,heart_text):
         # 通过Qt信号向UI界面发送信息

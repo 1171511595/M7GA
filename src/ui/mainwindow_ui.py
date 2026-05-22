@@ -17,8 +17,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QListView, QMainWindow,
-    QMenu, QMenuBar, QSizePolicy, QStatusBar,
-    QWidget)
+    QMenu, QMenuBar, QPushButton, QSizePolicy,
+    QStatusBar, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -63,10 +63,16 @@ class Ui_MainWindow(object):
         self.label_6 = QLabel(self.centralwidget)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setGeometry(QRect(20, 540, 141, 41))
+        self.pushButton = QPushButton(self.centralwidget)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setGeometry(QRect(290, 330, 100, 32))
+        self.pushButton_2 = QPushButton(self.centralwidget)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setGeometry(QRect(290, 380, 100, 32))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 601, 22))
+        self.menubar.setGeometry(QRect(0, 0, 601, 34))
         self.menu = QMenu(self.menubar)
         self.menu.setObjectName(u"menu")
         self.menu_2 = QMenu(self.menubar)
@@ -110,6 +116,8 @@ class Ui_MainWindow(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u4eca\u65e5\u603b\u6536\u76ca", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u91cd\u70b9\u4fe1\u606f\u663e\u793a\u533a\u5b57\u53f7\u8bbe\u7f6e", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u878d\u5408\u5f39\u5e55\u663e\u793a\u533a\u5b57\u53f7\u8bbe\u7f6e", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u5173\u95ed\u7ebf\u7a0b", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u7ebf\u7a0b", None))
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u8bbe\u7f6e", None))
         self.menu_2.setTitle(QCoreApplication.translate("MainWindow", u"\u5f55\u5236", None))
         self.menu_3.setTitle(QCoreApplication.translate("MainWindow", u"\u7edf\u8ba1", None))

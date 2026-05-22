@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from PySide6.QtCore import QThread, Signal
+from threading import Event
 # asyncio是Python的异步编程核心库，用来async/await、协程、并发任务
 import asyncio
 # 用于操作HTTP cookie，用于设置B站登录状态
@@ -16,7 +17,12 @@ import blivedm
 import blivedm.models.web as web_models
 
 class BLiveModel(QThread):
-# class BLiveModel():
+    def __init__(self):
+        super().__init__()
+        self._stop_event = asyncio.Event()
+        self._loop = None
+        self._main_task = None
+
     def InitID(self,bliveID:int,bliveSESSDATA:str):
         self._bliveID = bliveID
         self._bliveSESSDATA = bliveSESSDATA
@@ -30,7 +36,17 @@ class BLiveModel(QThread):
         启动异步任务
         这里是QThread的入口
         """
-        asyncio.run(self.main())
+        self._loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(self._loop)
+        self._main_task = self._loop.create_task(self.main())
+        try:
+            self._loop.run_until_complete(self._main_task)
+        except asyncio.CancelledError:
+            pass
+
+    def stop_asyncio(self):
+        self._loop.call_soon_threadsafe(self._stop_event.set)
+        self.wait()
 
     async def main(self):
         """
@@ -67,10 +83,8 @@ class BLiveModel(QThread):
         #启动弹幕监听
         client.start()
         try:
-            # 永远运行，知道Ctrl+C
-            await asyncio.Future()
+            await self._stop_event.wait()
         finally:
-            # 用于确保资源真的被释放
             await client.stop_and_close()
 
     class MyHandler(blivedm.BaseHandler):
