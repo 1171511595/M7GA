@@ -1,7 +1,7 @@
 from PySide6.QtCore import Signal,Slot
 from PySide6.QtWidgets import QMainWindow
-from src.ui import mainwindow_ui
-from src.model.blivedmmodel import BLiveModel
+from ui import mainwindow_ui
+from model.blivedmmodel import BLiveModel
 
 class MainWindow(QMainWindow):
 

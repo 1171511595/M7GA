@@ -1,5 +1,5 @@
 from PySide6.QtCore import QObject, Signal, Slot
-from src.model.blivedmmodel import BLiveModel
+from model.blivedmmodel import BLiveModel
 
 class Blive(QObject):
     # 定义一个信号，参数为字符串

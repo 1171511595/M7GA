@@ -2,11 +2,11 @@ import sys
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QSharedMemory
 
-from src.model.blivedmmodel import BLiveModel
+from model.blivedmmodel import BLiveModel
 
-from src.modelview.blive import Blive
+from modelview.blive import Blive
 
-from src.ui.MainWindow import MainWindow as MainWindow
+from ui.MainWindow import MainWindow as MainWindow
 
 def main():
     # 确保程序启动唯一
