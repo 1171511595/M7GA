@@ -25,9 +25,13 @@ class Blive(QObject):
         # 今日开播总收入
         self.today_recv_money = 0
         # 今日进过直播间的人,只要是进入直播间的，名字就都记录下来
-        self.today_comepeoplename:set
+        self.today_comepeoplename:set = {}
         # 今日直播间的所有人的普通发言信息（备查）
-        self.today_allpeoplemsg:list
+        self.today_allpeoplemsg:list = []
+        # 今日直播间的所有礼物记录列表
+        self.today_allgiftmsg:list = []
+        # 今日直播间的所有上舰记录列表
+        self.today_allcaptain:list = []
 
     def initConnect(self):
         # 连接模型的心跳信号
@@ -46,14 +50,23 @@ class Blive(QObject):
     @Slot()
     def start_blive(self):
         # 设置使用的房间号和用户登录态SESSDATA后开始收集信息
+        # 重开一个线程
+        if (self._model == None):
+            self._model = BLiveModel()
+            # 因为新建了数据对象，所以需要重新链接槽函数
+            self.initConnect()
         # print("设置房间号和登录态")
-        self._model.InitID(10339509,'5291b011%2C1795093784%2C103d4%2A51')
+        self._model.InitID(32232237,'5291b011%2C1795093784%2C103d4%2A51')
         # print("开始线程")
         self._model.start()
 
+
     @Slot()
     def stop_blive(self):
+        if (self._model == None):
+            return
         self._model.stop_asyncio()
+        self._model = None
 
     def on_recv_heart(self,heart_text):
         # 接收数据模型传来的心跳信息
@@ -63,14 +76,16 @@ class Blive(QObject):
     def on_recv_normalmsg(self,username,msg):
         # 接收数据模型传来的普通用户信息
         # 将普通用户信息存储到List列表
-        self.today_allpeoplemsg.add(username+msg)
+        self.today_allpeoplemsg.append(username+msg)
         # 对msg进行处理，找到信息中所有的表情包标识
         emojiname_list = re.findall(r'\[(.*?)\]', msg)
         # 去掉信息中的表情，留下纯文本
+        usermsg = ''
         left = msg.find('[')
         if left != -1:
             usermsg = msg[:left]
         else:
+            usermsg = msg
             print("没有找到 [")
         # 将发送人，发送信息，表情包标识全部发送到UI界面
         self.normal_msg.emit(username,usermsg,emojiname_list)
@@ -79,17 +94,37 @@ class Blive(QObject):
 
     def on_recv_giftmsg(self,username,giftname,giftnum,moneytype,money):
         # 接收数据模型传来的礼物消息
-        print()
+        # 将礼物消息添加到记录列表中
+        self.today_allgiftmsg.append(username+giftname+'x'+giftnum+moneytype+'x'+money)
+        # 计算收入
+        if(moneytype == 'gold'):
+            # 1元==1000金瓜子
+            self.today_recv_money += float(money)/1000
+            print('今日已收入'+str(int(self.today_recv_money))+'元')
+        # 将送礼人，礼物名字，礼物数量，收入，全部发送到UI界面
+        self.gift_msg.emit(username+giftname+'x'+giftnum+moneytype+'x'+money)
 
     def on_recv_captainmsg(self,username,captaingrade):
         # 接收数据模型传来的上舰等级
-        print()
+        # 将上舰记录添加到记录列表中
+        self.today_allcaptain.append(username+captaingrade)
+        # 计算收入
+        if (captaingrade == '总督'):
+            self.today_recv_money += 10000
+        if (captaingrade == '提督'):
+            self.today_recv_money += 1000
+        if (captaingrade == '舰长'):
+            self.today_recv_money += 100
+
+        print('今日已收入'+str(int(self.today_recv_money))+'元')
+        # 将上舰消息发送到UI界面
+        self.captain_msg.emit(username+captaingrade)
 
     def on_recv_goldmsg(self,username,msg,money):
         # 接收数据模型传来的醒目留言信息
-        print()
+        pass
 
     def on_recv_peoplecome(self,username):
         # 接收数据模型传来的进入直播间的用户的用户名
-        print()
+        pass
 
