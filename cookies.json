@@ -1,56 +1,85 @@
 [
     {
         "domain": ".bilibili.com",
-        "expiry": 1814014558,
+        "expiry": 1814101785,
         "httpOnly": false,
-        "name": "LIVE_BUVID",
+        "name": "buvid_fp",
         "path": "/",
         "sameSite": "Lax",
         "secure": false,
-        "value": "AUTO7317794545581990"
+        "value": "9a7c98a4f31a2310dfaa15c9768b8b39"
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1782046557,
+        "expiry": 1811077757,
         "httpOnly": false,
-        "name": "buvid4",
+        "name": "_uuid",
         "path": "/",
         "sameSite": "Lax",
         "secure": false,
-        "value": "E4FB79FB-8367-F894-64C3-C367B2DE6F1G58053-026052220-iQ53NtiWTY3s%2BfzOL9lErByhT4WPYcwiq43TeVyFgZuszeersNknq849oCvfakae"
+        "value": "A5DC103B6-C838-CAB3-2410C-1FB934E7D771057681infoc"
     },
     {
         "domain": ".bilibili.com",
+        "expiry": 1814101757,
         "httpOnly": false,
-        "name": "b_lsid",
+        "name": "b_nut",
         "path": "/",
         "sameSite": "Lax",
         "secure": false,
-        "value": "3DEA62A7_19E4FC1F1D6"
+        "value": "1779541757"
     },
     {
-        "domain": ".bilibili.com",
-        "expiry": 1814014570,
+        "domain": "live.bilibili.com",
         "httpOnly": false,
-        "name": "PVID",
+        "name": "bmg_af_switch",
         "path": "/",
         "sameSite": "Lax",
         "secure": false,
-        "value": "2"
+        "value": "1"
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1779540970,
+        "expiry": 1779800957,
         "httpOnly": false,
-        "name": "DedeUserID",
+        "name": "bili_ticket_expires",
+        "path": "/",
+        "sameSite": "Lax",
+        "secure": false,
+        "value": "1779800897"
+    },
+    {
+        "domain": "live.bilibili.com",
+        "httpOnly": false,
+        "name": "bmg_src_def_domain",
+        "path": "/",
+        "sameSite": "Lax",
+        "secure": false,
+        "value": "i2.hdslb.com"
+    },
+    {
+        "domain": ".bilibili.com",
+        "expiry": 1811077769,
+        "httpOnly": false,
+        "name": "fingerprint",
+        "path": "/",
+        "sameSite": "Lax",
+        "secure": false,
+        "value": "9a7c98a4f31a2310dfaa15c9768b8b39"
+    },
+    {
+        "domain": ".bilibili.com",
+        "expiry": 1779628184,
+        "httpOnly": false,
+        "name": "bili_jct",
         "path": "/",
         "sameSite": "None",
         "secure": true,
-        "value": "74167140"
+        "value": "519020a288a8d4a1479598f14430a39d"
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1779540970,
+        "expiry": 1779628184,
         "httpOnly": false,
         "name": "DedeUserID__ckMd5",
         "path": "/",
@@ -60,23 +89,33 @@
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1779540970,
+        "expiry": 1782133757,
         "httpOnly": false,
-        "name": "sid",
-        "path": "/",
-        "sameSite": "None",
-        "secure": true,
-        "value": "5ihuqldr"
-    },
-    {
-        "domain": ".bilibili.com",
-        "expiry": 1814014570,
-        "httpOnly": false,
-        "name": "buvid_fp",
+        "name": "buvid4",
         "path": "/",
         "sameSite": "Lax",
         "secure": false,
-        "value": "25dc00b1848b847c4003da0831b03a64"
+        "value": "E85D8FAC-A487-E101-D6EA-9081C20DA8DG57940-026052321-JGuiiJQDXFKvlEV8VLjh3Q%3D%3D"
+    },
+    {
+        "domain": ".bilibili.com",
+        "expiry": 1814101757,
+        "httpOnly": false,
+        "name": "LIVE_BUVID",
+        "path": "/",
+        "sameSite": "Lax",
+        "secure": false,
+        "value": "AUTO8417795417579754"
+    },
+    {
+        "domain": ".bilibili.com",
+        "expiry": 1779628184,
+        "httpOnly": false,
+        "name": "DedeUserID",
+        "path": "/",
+        "sameSite": "None",
+        "secure": true,
+        "value": "74167140"
     },
     {
         "domain": "live.bilibili.com",
@@ -89,37 +128,56 @@
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1810990557,
-        "httpOnly": false,
-        "name": "_uuid",
+        "expiry": 1779628184,
+        "httpOnly": true,
+        "name": "SESSDATA",
         "path": "/",
-        "sameSite": "Lax",
-        "secure": false,
-        "value": "43C11A68-A93B-C10D8-EFA10-377CDA6F552757815infoc"
+        "sameSite": "None",
+        "secure": true,
+        "value": "5291b011%2C1795093784%2C103d4%2A51"
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1779713757,
+        "expiry": 1779800957,
         "httpOnly": false,
         "name": "bili_ticket",
         "path": "/",
         "sameSite": "Lax",
         "secure": false,
-        "value": "eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Nzk3MTM3NTgsImlhdCI6MTc3OTQ1NDQ5OCwicGx0IjotMX0.v2KwfVF4Oxs91WiUqJoPZGjwcfh5DO8mmVhOh0_-U5w"
+        "value": "eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Nzk4MDA5NTcsImlhdCI6MTc3OTU0MTY5NywicGx0IjotMX0.xMTTVgjCYI1fdEpRhjXnsjK7PR_Bf9fG4Z9HSkFEqCE"
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1814014557,
+        "expiry": 1814101784,
         "httpOnly": false,
-        "name": "b_nut",
+        "name": "PVID",
         "path": "/",
         "sameSite": "Lax",
         "secure": false,
-        "value": "1779454557"
+        "value": "2"
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1810990559,
+        "httpOnly": false,
+        "name": "b_lsid",
+        "path": "/",
+        "sameSite": "Lax",
+        "secure": false,
+        "value": "289D7563_19E54F4B930"
+    },
+    {
+        "domain": ".bilibili.com",
+        "expiry": 1814101757,
+        "httpOnly": false,
+        "name": "buvid3",
+        "path": "/",
+        "sameSite": "Lax",
+        "secure": false,
+        "value": "FCB26AC3-99AD-6E14-80E0-95DDFBA47B0B57940infoc"
+    },
+    {
+        "domain": ".bilibili.com",
+        "expiry": 1811077769,
         "httpOnly": false,
         "name": "buvid_fp_plain",
         "path": "/",
@@ -129,52 +187,12 @@
     },
     {
         "domain": ".bilibili.com",
-        "expiry": 1810990559,
+        "expiry": 1779628184,
         "httpOnly": false,
-        "name": "fingerprint",
-        "path": "/",
-        "sameSite": "Lax",
-        "secure": false,
-        "value": "25dc00b1848b847c4003da0831b03a64"
-    },
-    {
-        "domain": ".bilibili.com",
-        "expiry": 1779540970,
-        "httpOnly": true,
-        "name": "SESSDATA",
+        "name": "sid",
         "path": "/",
         "sameSite": "None",
         "secure": true,
-        "value": "8d936c43%2C1795006570%2Cca220%2A51"
-    },
-    {
-        "domain": ".bilibili.com",
-        "expiry": 1779713757,
-        "httpOnly": false,
-        "name": "bili_ticket_expires",
-        "path": "/",
-        "sameSite": "Lax",
-        "secure": false,
-        "value": "1779713698"
-    },
-    {
-        "domain": ".bilibili.com",
-        "expiry": 1779540970,
-        "httpOnly": false,
-        "name": "bili_jct",
-        "path": "/",
-        "sameSite": "None",
-        "secure": true,
-        "value": "68b50ea9ed246470ab1b12f0bd24ad4b"
-    },
-    {
-        "domain": ".bilibili.com",
-        "expiry": 1814014557,
-        "httpOnly": false,
-        "name": "buvid3",
-        "path": "/",
-        "sameSite": "Lax",
-        "secure": false,
-        "value": "80B94DFC-195B-308F-14DC-225DE1BE1EC258053infoc"
+        "value": "fvp9chem"
     }
 ]

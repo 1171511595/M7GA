@@ -20,7 +20,6 @@ def main():
     blive = Blive(BLiveModel())
     mainWindow = MainWindow(blive)
     mainWindow.show()
-    blive.start_blive()
     # mainWindow.start_blive()
 
     sys.exit(app.exec())

@@ -1,11 +1,11 @@
 from PySide6.QtCore import Signal,Slot
 from PySide6.QtWidgets import QMainWindow
 from ui import mainwindow_ui
-from model.blivedmmodel import BLiveModel
+from modelview.blive import Blive
 
 class MainWindow(QMainWindow):
 
-    def __init__(self,blivemodelview:BLiveModel):
+    def __init__(self,blivemodelview:Blive):
         super().__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)

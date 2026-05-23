@@ -29,13 +29,30 @@ class BLiveModel(QThread):
         self._session: Optional[aiohttp.ClientSession] = None
         
     # 信号：返回直播间心跳信息
+    # 心跳
     result_heart = Signal(str)
+    # 信号：返回直播间普通弹幕
+    # 用户名，信息内容
+    result_normalmsg = Signal(str,str)
+    # 信号：返回直播间礼物消息
+    # 用户名，礼物名，数量，货币类型，价值
+    result_giftmsg = Signal(str,str,str,str,str)
+    # 信号：返回直播间大航海消息
+    # 用户名，舰长等级
+    result_captainmsg = Signal(str,str)
+    # 信号：返回直播间付费醒目留言
+    # 用户名，内容，价值（元）
+    reslut_goldmsg = Signal(str,str,str)
+    # 信号：返回观众进入房间信息
+    result_peoplecome = Signal(str)
 
     def run(self):
         """
         启动异步任务
         这里是QThread的入口
         """
+        # print("已设置的用户登录态：")
+        # print(self._bliveSESSDATA)
         self._loop = asyncio.new_event_loop()
         asyncio.set_event_loop(self._loop)
         self._main_task = self._loop.create_task(self.main())
@@ -109,22 +126,27 @@ class BLiveModel(QThread):
             """
             心跳包
             """
-            print(f'[{client.room_id}] 心跳')
-            # 通过Qt信号向外发送信息
-            self.model.result_heart.emit(f'[{client.room_id}] 心跳')
+            # print(f'[{client.room_id}] 心跳')
+            # 通过Qt信号向外发送心跳信息
+            self.model.result_heart.emit(f'心跳')
 
         def _on_danmaku(self, client: blivedm.BLiveClient, message: web_models.DanmakuMessage):
             """
             普通弹幕消息,uname:用户名,msg:弹幕内容
             """
-            print(f'[{client.room_id}] {message.uname}：{message.msg}')
+            # print(f'[{client.room_id}] {message.uname}：{message.msg}')
+            # 通过Qt信号向外发送普通用户的信息
+            self.model.result_normalmsg.emit(f'{message.uname}',f'{message.msg}')
+
+            
 
         def _on_gift(self, client: blivedm.BLiveClient, message: web_models.GiftMessage):
             """
             礼物消息，送礼人、礼物名、数量、价格
             """
-            print(f'[{client.room_id}] {message.uname} 赠送{message.gift_name}x{message.num}'
-                f' （{message.coin_type}瓜子x{message.total_coin}）')
+            # print(f'[{client.room_id}] {message.uname} 赠送{message.gift_name}x{message.num}'
+            #     f' （{message.coin_type}瓜子x{message.total_coin}）')
+            self.model.result_giftmsg.emit(f'{message.uname}',f'{message.gift_name}',f'{message.num}',f'{message.coin_type}',f'{message.total_coin}')
 
         # def _on_buy_guard(self, client: blivedm.BLiveClient, message: web_models.GuardBuyMessage):
         #     print(f'[{client.room_id}] {message.username} 上舰，guard_level={message.guard_level}')
@@ -135,15 +157,30 @@ class BLiveModel(QThread):
             """
             # 过滤掉某些重复/系统通知
             if message.source != 2:
-                print(f'[{client.room_id}] {message.username} 上舰，guard_level={message.guard_level}')
+                # print(f'[{client.room_id}] {message.username} 上舰，guard_level={message.guard_level}')
+                if message.guard_level == 0:
+                    self.model.result_captainmsg.emit(f'{message.username}',f'非舰队')
+                if message.guard_level == 1:
+                    self.model.result_captainmsg.emit(f'{message.username}',f'总督')
+                if message.guard_level == 2:
+                    self.model.result_captainmsg.emit(f'{message.username}',f'提督')
+                if message.guard_level == 3:
+                    self.model.result_captainmsg.emit(f'{message.username}',f'舰长')
+
 
         def _on_super_chat(self, client: blivedm.BLiveClient, message: web_models.SuperChatMessage):
             """
             付费醒目留言
             """
-            print(f'[{client.room_id}] 醒目留言 ¥{message.price} {message.uname}：{message.message}')
+            # print(f'[{client.room_id}] 醒目留言 ¥{message.price} {message.uname}：{message.message}')
+            self.model.reslut_goldmsg.emit(f'{message.uname}',f'{message.message}',f'{message.price}')
 
-        # def _on_interact_word_v2(self, client: blivedm.BLiveClient, message: web_models.InteractWordV2Message):
-        #     if message.msg_type == 1:
-        #         print(f'[{client.room_id}] {message.username} 进入房间')
+        def _on_interact_word_v2(self, client: blivedm.BLiveClient, message: web_models.InteractWordV2Message):
+            """
+            有观众进入直播间信息
+            """
+            if message.msg_type == 1:
+                # print(f'[{client.room_id}] {message.username} 进入房间')
+                self.model.result_peoplecome.emit(f'{message.username}')
+
 
