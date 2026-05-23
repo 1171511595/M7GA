@@ -25,13 +25,15 @@ class Blive(QObject):
         # 今日开播总收入
         self.today_recv_money = 0
         # 今日进过直播间的人,只要是进入直播间的，名字就都记录下来
-        self.today_comepeoplename:set = {}
+        self.today_comepeoplename:set = set()
         # 今日直播间的所有人的普通发言信息（备查）
         self.today_allpeoplemsg:list = []
         # 今日直播间的所有礼物记录列表
         self.today_allgiftmsg:list = []
         # 今日直播间的所有上舰记录列表
         self.today_allcaptain:list = []
+        # 今日直播间的所有付费留言
+        self.today_gold_message:list = []
 
     def initConnect(self):
         # 连接模型的心跳信号
@@ -56,7 +58,7 @@ class Blive(QObject):
             # 因为新建了数据对象，所以需要重新链接槽函数
             self.initConnect()
         # print("设置房间号和登录态")
-        self._model.InitID(32232237,'5291b011%2C1795093784%2C103d4%2A51')
+        self._model.InitID(1919954675,'5291b011%2C1795093784%2C103d4%2A51')
         # print("开始线程")
         self._model.start()
 
@@ -85,12 +87,10 @@ class Blive(QObject):
         if left != -1:
             usermsg = msg[:left]
         else:
+            # 没有找到'['，直接把信息复制到usermsg中
             usermsg = msg
-            print("没有找到 [")
         # 将发送人，发送信息，表情包标识全部发送到UI界面
         self.normal_msg.emit(username,usermsg,emojiname_list)
-
-
 
     def on_recv_giftmsg(self,username,giftname,giftnum,moneytype,money):
         # 接收数据模型传来的礼物消息
@@ -122,9 +122,19 @@ class Blive(QObject):
 
     def on_recv_goldmsg(self,username,msg,money):
         # 接收数据模型传来的醒目留言信息
-        pass
+        # 将付费留言添加到记录列表中
+        self.today_gold_message.append(username+msg+money)
+        # 计算收入
+        self.today_recv_money += int(money)
+
+        print('今日已收入'+str(int(self.today_recv_money))+'元')
+        # 将付费留言发送到UI界面
+        self.on_recv_goldmsg.emit(username+msg+money)
 
     def on_recv_peoplecome(self,username):
         # 接收数据模型传来的进入直播间的用户的用户名
-        pass
+        # 将进入直播间的用户名记录到集合中
+        self.today_comepeoplename.add(str(username))
+        # 将观众进入信息发送到UI界面
+        self.come_people.emit(username)
 
