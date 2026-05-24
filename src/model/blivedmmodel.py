@@ -32,8 +32,8 @@ class BLiveModel(QThread):
     # 心跳
     result_heart = Signal(str)
     # 信号：返回直播间普通弹幕
-    # 用户名，信息内容
-    result_normalmsg = Signal(str,str)
+    # 用户名，勋章名，勋章等级，信息内容
+    result_normalmsg = Signal(str,str,str,str)
     # 信号：返回直播间礼物消息
     # 用户名，礼物名，数量，货币类型，价值
     result_giftmsg = Signal(str,str,str,str,str)
@@ -137,7 +137,10 @@ class MyHandler(blivedm.BaseHandler):
         """
         # print(f'[{client.room_id}] {message.uname}：{message.msg}')
         # 通过Qt信号向外发送普通用户的信息
-        self.model.result_normalmsg.emit(f'{message.uname}',f'{message.msg}')
+        str_name = message.medal_name
+        str_level = message.medal_level
+        # print("发言人："+f'{message.uname}'+"勋章名："+f'{str_name}'+"勋章等级："+f'{str_level}'+":"+f'{message.msg}')
+        self.model.result_normalmsg.emit(f'{message.uname}',f'{message.medal_name}',f'{message.medal_level}',f'{message.msg}')
 
         
 

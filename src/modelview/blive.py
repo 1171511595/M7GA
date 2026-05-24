@@ -7,7 +7,8 @@ class Blive(QObject):
     # 向UI发送心跳内容
     heart_msg = Signal(str)
     # 向UI推送处理后的普通用户信息
-    normal_msg = Signal(str,str,list)
+    # 用户名，勋章名，勋章等级，信息内容
+    normal_msg = Signal(str,str,str,str)
     # 向UI推送处理后的礼物消息
     gift_msg = Signal(str)
     # 向UI推送处理后的上舰等级
@@ -58,7 +59,7 @@ class Blive(QObject):
             # 因为新建了数据对象，所以需要重新链接槽函数
             self.initConnect()
         # print("设置房间号和登录态")
-        self._model.InitID(1919954675,'5291b011%2C1795093784%2C103d4%2A51')
+        self._model.InitID(46197,'801ee64e%2C1795149443%2C936bf%2A51')
         # print("开始线程")
         self._model.start()
 
@@ -75,22 +76,24 @@ class Blive(QObject):
         # 通过Qt信号向UI界面发送信息
         self.heart_msg.emit(heart_text)
 
-    def on_recv_normalmsg(self,username,msg):
+    def on_recv_normalmsg(self,username,medal_name,medal_level,msg):
         # 接收数据模型传来的普通用户信息
         # 将普通用户信息存储到List列表
-        self.today_allpeoplemsg.append(username+msg)
-        # 对msg进行处理，找到信息中所有的表情包标识
-        emojiname_list = re.findall(r'\[(.*?)\]', msg)
-        # 去掉信息中的表情，留下纯文本
-        usermsg = ''
-        left = msg.find('[')
-        if left != -1:
-            usermsg = msg[:left]
-        else:
-            # 没有找到'['，直接把信息复制到usermsg中
-            usermsg = msg
+        self.today_allpeoplemsg.append(username+medal_name+medal_level+msg)
+        # msg处理部分移到UI界面绘制中
+        # # 对msg进行处理，找到信息中所有的表情包标识
+        # emojiname_list = re.findall(r'\[(.*?)\]', msg)
+        # # 去掉信息中的表情，留下纯文本
+        # usermsg = ''
+        # left = msg.find('[')
+        # if left != -1:
+        #     usermsg = msg[:left]
+        # else:
+        #     # 没有找到'['，直接把信息复制到usermsg中
+        #     usermsg = msg
+
         # 将发送人，发送信息，表情包标识全部发送到UI界面
-        self.normal_msg.emit(username,usermsg,emojiname_list)
+        self.normal_msg.emit(username,medal_name,medal_level,msg)
 
     def on_recv_giftmsg(self,username,giftname,giftnum,moneytype,money):
         # 接收数据模型传来的礼物消息
