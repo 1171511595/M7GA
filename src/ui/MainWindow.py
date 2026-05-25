@@ -27,18 +27,21 @@ class MainWindow(QMainWindow):
         # 开始线程
         self.ui.pushButton_2.clicked.connect(self.start_bliveThread)
 
+    @Slot()
     def on_openBilibiliLoginWindow(self):
         # 打开软件中的Bilibili登录窗口
         self.modelview.on_get_login_cookies()
 
-
+    @Slot()
     def start_bliveThread(self):
         self.modelview.start_blive()
 
+    @Slot()
     def stop_bliveThread(self):
         # print("界面按钮点击")
         self.modelview.stop_blive()
 
+    @Slot()
     def on_recv_heart(self,text):
         print("UI收到心跳:",text)
 
