@@ -148,13 +148,13 @@
      <height>34</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menu_basic_setting">
     <property name="title">
-     <string>设置</string>
+     <string>基础配置</string>
     </property>
-    <addaction name="actionden"/>
-    <addaction name="actionden2"/>
-    <addaction name="actionden3"/>
+    <addaction name="actionden_login_Blibili"/>
+    <addaction name="actionden_login_Douyin"/>
+    <addaction name="actionden_login_Kuaishou"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -174,7 +174,7 @@
      <string>其他</string>
     </property>
    </widget>
-   <addaction name="menu"/>
+   <addaction name="menu_basic_setting"/>
    <addaction name="menu_2"/>
    <addaction name="menu_3"/>
    <addaction name="menu_4"/>
@@ -195,17 +195,17 @@
     <string>录制快手直播</string>
    </property>
   </action>
-  <action name="actionden">
+  <action name="actionden_login_Blibili">
    <property name="text">
     <string>登录B站账号</string>
    </property>
   </action>
-  <action name="actionden2">
+  <action name="actionden_login_Douyin">
    <property name="text">
     <string>登录抖音账号</string>
    </property>
   </action>
-  <action name="actionden3">
+  <action name="actionden_login_Kuaishou">
    <property name="text">
     <string>登录快手账号</string>
    </property>

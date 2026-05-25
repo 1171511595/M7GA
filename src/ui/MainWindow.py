@@ -20,10 +20,16 @@ class MainWindow(QMainWindow):
         
 
     def InitConnect(self):
+        # 连接界面菜单栏中基础设置中B站登录选项
+        self.ui.actionden_login_Blibili.triggered.connect(self.on_openBilibiliLoginWindow)
         # 连接界面的PushButton
         self.ui.pushButton.clicked.connect(self.stop_bliveThread)
         # 开始线程
         self.ui.pushButton_2.clicked.connect(self.start_bliveThread)
+
+    def on_openBilibiliLoginWindow(self):
+        # 打开软件中的Bilibili登录窗口
+        self.modelview.on_get_login_cookies()
 
 
     def start_bliveThread(self):

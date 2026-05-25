@@ -1,11 +1,10 @@
-import json
-import time
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-
 def get_live_cookie():
+    import json
+    import time
+    from selenium import webdriver
+    from selenium.webdriver.chrome.service import Service
+    from selenium.webdriver.chrome.options import Options
+    from webdriver_manager.chrome import ChromeDriverManager
     # 1. 配置 Chrome 选项，重点：加入反自动化检测参数
     options = Options()
     options.add_argument("--disable-blink-features=AutomationControlled")
