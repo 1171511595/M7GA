@@ -30,21 +30,21 @@ class BLiveModel(QThread):
         
     # 信号：返回直播间心跳信息
     # 心跳
-    result_heart = Signal(str)
+    signal_result_heart = Signal(str)
     # 信号：返回直播间普通弹幕
     # 用户名，勋章名，勋章等级，信息内容
-    result_normalmsg = Signal(str,str,str,str)
+    signal_result_normalmsg = Signal(str,str,str,str)
     # 信号：返回直播间礼物消息
     # 用户名，礼物名，数量，货币类型，价值
-    result_giftmsg = Signal(str,str,str,str,str)
+    signal_result_giftmsg = Signal(str,str,str,str,str)
     # 信号：返回直播间大航海消息
     # 用户名，舰长等级
-    result_captainmsg = Signal(str,str)
+    signal_result_captainmsg = Signal(str,str)
     # 信号：返回直播间付费醒目留言
     # 用户名，内容，价值（元）
-    reslut_goldmsg = Signal(str,str,str)
+    signal_reslut_goldmsg = Signal(str,str,str)
     # 信号：返回观众进入房间信息
-    result_peoplecome = Signal(str)
+    signal_result_peoplecome = Signal(str)
 
     def run(self):
         """
@@ -129,7 +129,7 @@ class MyHandler(blivedm.BaseHandler):
         """
         # print(f'[{client.room_id}] 心跳')
         # 通过Qt信号向外发送心跳信息
-        self.model.result_heart.emit(f'心跳')
+        self.model.signal_result_heart.emit(f'心跳')
 
     def _on_danmaku(self, client: blivedm.BLiveClient, message: web_models.DanmakuMessage):
         """
@@ -140,7 +140,7 @@ class MyHandler(blivedm.BaseHandler):
         str_name = message.medal_name
         str_level = message.medal_level
         # print("发言人："+f'{message.uname}'+"勋章名："+f'{str_name}'+"勋章等级："+f'{str_level}'+":"+f'{message.msg}')
-        self.model.result_normalmsg.emit(f'{message.uname}',f'{message.medal_name}',f'{message.medal_level}',f'{message.msg}')
+        self.model.signal_result_normalmsg.emit(f'{message.uname}',f'{message.medal_name}',f'{message.medal_level}',f'{message.msg}')
 
         
 
@@ -150,7 +150,7 @@ class MyHandler(blivedm.BaseHandler):
         """
         # print(f'[{client.room_id}] {message.uname} 赠送{message.gift_name}x{message.num}'
         #     f' （{message.coin_type}瓜子x{message.total_coin}）')
-        self.model.result_giftmsg.emit(f'{message.uname}',f'{message.gift_name}',f'{message.num}',f'{message.coin_type}',f'{message.total_coin}')
+        self.model.signal_result_giftmsg.emit(f'{message.uname}',f'{message.gift_name}',f'{message.num}',f'{message.coin_type}',f'{message.total_coin}')
 
     # def _on_buy_guard(self, client: blivedm.BLiveClient, message: web_models.GuardBuyMessage):
     #     print(f'[{client.room_id}] {message.username} 上舰，guard_level={message.guard_level}')
@@ -163,13 +163,13 @@ class MyHandler(blivedm.BaseHandler):
         if message.source != 2:
             # print(f'[{client.room_id}] {message.username} 上舰，guard_level={message.guard_level}')
             if message.guard_level == 0:
-                self.model.result_captainmsg.emit(f'{message.username}',f'非舰队')
+                self.model.signal_result_captainmsg.emit(f'{message.username}',f'非舰队')
             if message.guard_level == 1:
-                self.model.result_captainmsg.emit(f'{message.username}',f'总督')
+                self.model.signal_result_captainmsg.emit(f'{message.username}',f'总督')
             if message.guard_level == 2:
-                self.model.result_captainmsg.emit(f'{message.username}',f'提督')
+                self.model.signal_result_captainmsg.emit(f'{message.username}',f'提督')
             if message.guard_level == 3:
-                self.model.result_captainmsg.emit(f'{message.username}',f'舰长')
+                self.model.signal_result_captainmsg.emit(f'{message.username}',f'舰长')
 
 
     def _on_super_chat(self, client: blivedm.BLiveClient, message: web_models.SuperChatMessage):
@@ -177,7 +177,7 @@ class MyHandler(blivedm.BaseHandler):
         付费醒目留言
         """
         # print(f'[{client.room_id}] 醒目留言 ¥{message.price} {message.uname}：{message.message}')
-        self.model.reslut_goldmsg.emit(f'{message.uname}',f'{message.message}',f'{message.price}')
+        self.model.signal_reslut_goldmsg.emit(f'{message.uname}',f'{message.message}',f'{message.price}')
 
     def _on_interact_word_v2(self, client: blivedm.BLiveClient, message: web_models.InteractWordV2Message):
         """
@@ -185,6 +185,6 @@ class MyHandler(blivedm.BaseHandler):
         """
         if message.msg_type == 1:
             # print(f'[{client.room_id}] {message.username} 进入房间')
-            self.model.result_peoplecome.emit(f'{message.username}')
+            self.model.signal_result_peoplecome.emit(f'{message.username}')
 
 
