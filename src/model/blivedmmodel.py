@@ -62,6 +62,9 @@ class BLiveModel(QThread):
             pass
 
     def stop_asyncio(self):
+        # 如果线程没有启动，直接返回
+        if self._loop == None:
+            return
         self._loop.call_soon_threadsafe(self._stop_event.set)
         self.wait()
 
