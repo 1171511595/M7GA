@@ -23,15 +23,18 @@ class LoginBilibili(QWidget):
         # chrome驱动
         self.driver = None
         # 页面cookies
-        self.cookie = None
+        self.cookies = None
+        self.roomID:int = 0
         # B站用户登录态
-        self.sessdata = None
+        self.sessdata:str = ''
 
     def InitConnect(self):
         # 将打开登录窗口的按钮和对应的槽函数相关联
         self.ui.pushButton_openBilibiliLogin.clicked.connect(self.on_OpenBilibiliLogin)
         # 将获取用户登录态的按钮和对应的槽函数相关联
         self.ui.pushButton_getBilibiliSESSDATA.clicked.connect(self.on_GetBilibiliSESSDATA)
+        # 将获取房间ID号的按钮和对应的槽函数相关联
+        self.ui.pushButton_inputRoomID.clicked.connect(self.slot_getRoomID)
         # 将关闭登录窗口的按钮和对应的槽函数相关联
         self.ui.pushButton_closeBilibiliWinodw.clicked.connect(self.on_CloseBilibiliLogin)
 
@@ -63,32 +66,43 @@ class LoginBilibili(QWidget):
 
     @Slot()
     def on_GetBilibiliSESSDATA(self):
+        # 未打开页面就点击获取SESSDATA时不进入逻辑
+        if self.driver == None:
+            return
         # 5. 获取所有 Cookie
         print("🔍 正在提取 Cookie...")
-        cookies = self.driver.get_cookies()
+        self.cookies = self.driver.get_cookies()
         
         # 6. 从中筛选出 SESSDATA
-        sessdata = None
-        for cookie in cookies:
+        self.sessdata = None
+        for cookie in self.cookies:
             if cookie['name'] == 'SESSDATA':
-                sessdata = cookie['value']
-                self.today_USER_SESSDATA = cookie['value']
+                self.sessdata = cookie['value']
                 break
                 
-        if sessdata:
-            print(f"✅ 获取成功！你的 SESSDATA 是：{sessdata}")
+        if self.sessdata:
+            print(f"✅ 获取成功！你的 SESSDATA 是：{self.sessdata}")
             # 保存为 JSON 文件，方便后续 blivedm 读取
             with open("Bilibilicookies.json", "w", encoding="utf-8") as f:
-                json.dump(cookies, f, indent=4, ensure_ascii=False)
+                json.dump(self.cookies, f, indent=4, ensure_ascii=False)
             print("💾 Cookie 已保存为 Bilibilicookies.json")
         else:
             print("❌ 未能获取 SESSDATA，请确认是否登录成功。")
-            
-        self.driver.quit()
+
 
     @Slot()
     def on_CloseBilibiliLogin(self):
+        # 未打开页面就点击退出页面时不进入逻辑
+        if self.driver == None:
+            self.hide()
+            return
         # 退出浏览器页面
         self.driver.quit()
         # 隐藏当前窗口
         self.hide()
+
+    @Slot()
+    def slot_getRoomID(self):
+        # 获取用户输入的RoomID
+        self.roomID = int(self.ui.lineEdit_inputRoomID.text())
+        return

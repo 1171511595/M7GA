@@ -15,7 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QPushButton, QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QWidget)
 
 class Ui_WidgetLoginBilibili(object):
     def setupUi(self, WidgetLoginBilibili):
@@ -27,10 +28,19 @@ class Ui_WidgetLoginBilibili(object):
         self.pushButton_openBilibiliLogin.setGeometry(QRect(20, 20, 100, 32))
         self.pushButton_getBilibiliSESSDATA = QPushButton(WidgetLoginBilibili)
         self.pushButton_getBilibiliSESSDATA.setObjectName(u"pushButton_getBilibiliSESSDATA")
-        self.pushButton_getBilibiliSESSDATA.setGeometry(QRect(20, 100, 111, 31))
+        self.pushButton_getBilibiliSESSDATA.setGeometry(QRect(20, 60, 111, 31))
         self.pushButton_closeBilibiliWinodw = QPushButton(WidgetLoginBilibili)
         self.pushButton_closeBilibiliWinodw.setObjectName(u"pushButton_closeBilibiliWinodw")
-        self.pushButton_closeBilibiliWinodw.setGeometry(QRect(20, 190, 100, 32))
+        self.pushButton_closeBilibiliWinodw.setGeometry(QRect(360, 580, 100, 32))
+        self.pushButton_inputRoomID = QPushButton(WidgetLoginBilibili)
+        self.pushButton_inputRoomID.setObjectName(u"pushButton_inputRoomID")
+        self.pushButton_inputRoomID.setGeometry(QRect(350, 20, 100, 32))
+        self.lineEdit_inputRoomID = QLineEdit(WidgetLoginBilibili)
+        self.lineEdit_inputRoomID.setObjectName(u"lineEdit_inputRoomID")
+        self.lineEdit_inputRoomID.setGeometry(QRect(230, 20, 113, 21))
+        self.label_inputRoomID = QLabel(WidgetLoginBilibili)
+        self.label_inputRoomID.setObjectName(u"label_inputRoomID")
+        self.label_inputRoomID.setGeometry(QRect(170, 20, 58, 16))
 
         self.retranslateUi(WidgetLoginBilibili)
 
@@ -42,5 +52,7 @@ class Ui_WidgetLoginBilibili(object):
         self.pushButton_openBilibiliLogin.setText(QCoreApplication.translate("WidgetLoginBilibili", u"\u6253\u5f00\u767b\u5f55\u7a97\u53e3", None))
         self.pushButton_getBilibiliSESSDATA.setText(QCoreApplication.translate("WidgetLoginBilibili", u"\u83b7\u53d6\u7528\u6237\u767b\u5f55\u6001", None))
         self.pushButton_closeBilibiliWinodw.setText(QCoreApplication.translate("WidgetLoginBilibili", u"\u5173\u95ed\u7a97\u53e3", None))
+        self.pushButton_inputRoomID.setText(QCoreApplication.translate("WidgetLoginBilibili", u"\u786e\u8ba4\u623f\u95f4ID", None))
+        self.label_inputRoomID.setText(QCoreApplication.translate("WidgetLoginBilibili", u"\u623f\u95f4ID", None))
     # retranslateUi
 
