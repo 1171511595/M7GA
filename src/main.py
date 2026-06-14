@@ -20,10 +20,8 @@ def main():
     blive = Blive(BLiveModel())
     mainWindow = MainWindow(blive)
     mainWindow.show()
-    # mainWindow.start_blive()
 
     sys.exit(app.exec())
 
 if __name__ == "__main__":
-
     main()

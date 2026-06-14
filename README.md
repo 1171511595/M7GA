@@ -10,3 +10,8 @@ uv run pyinstaller --windowed --name "MakeSevenGreatAgain" --additional-hooks-di
 
 待添加WeChatPYAPI
 待添加nonebot2和go-cqhttp
+
+待做功能：
+界面显示弹幕列表
+超过一定时间自动隐藏过往消息
+
