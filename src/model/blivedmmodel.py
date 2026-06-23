@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# 与B站通信的接口模型 Model
+
 from PySide6.QtCore import QThread, Signal
 from threading import Event
 # asyncio是Python的异步编程核心库，用来async/await、协程、并发任务
@@ -140,12 +142,10 @@ class MyHandler(blivedm.BaseHandler):
         """
         # print(f'[{client.room_id}] {message.uname}：{message.msg}')
         # 通过Qt信号向外发送普通用户的信息
-        str_name = message.medal_name
-        str_level = message.medal_level
+        # str_name = message.medal_name
+        # str_level = message.medal_level
         # print("发言人："+f'{message.uname}'+"勋章名："+f'{str_name}'+"勋章等级："+f'{str_level}'+":"+f'{message.msg}')
-        self.model.signal_result_normalmsg.emit(f'{message.uname}',f'{message.medal_name}',f'{message.medal_level}',f'{message.msg}')
-
-        
+        self.model.signal_result_normalmsg.emit(f'{message.uname}',f'{message.medal_name}',f'{message.medal_level}',f'{message.msg}') 
 
     def _on_gift(self, client: blivedm.BLiveClient, message: web_models.GiftMessage):
         """

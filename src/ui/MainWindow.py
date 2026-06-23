@@ -53,6 +53,8 @@ class MainWindow(QMainWindow):
         self.ui.pushButton.clicked.connect(self.stop_bliveThread)
         # 开始线程
         self.ui.pushButton_2.clicked.connect(self.start_bliveThread)
+        # 普通信息接收并显示
+        self.modelview.signal_normal_msg.connect(self.slot_add_data2)
         # 测试数据添加
         self.ui.pushButton_3.clicked.connect(self.slot_add_data)
 
@@ -99,4 +101,8 @@ class MainWindow(QMainWindow):
         # 设置列表的行高根据内容而变化
         self.ui.tableWidget_normalMsg.resizeRowsToContents()
 
+    @Slot()
+    def slot_add_data2(self,data):
+        # 添加数据
+        pass
     

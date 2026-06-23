@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# B站模型视图层 ModelView
+# 存放具体接收到的数据信息，处理后供视图层显示调用
+
 from PySide6.QtCore import QObject, Signal, Slot
 import re
 from model.blivedmmodel import BLiveModel
@@ -27,8 +31,14 @@ class Blive(QObject):
         self.today_recv_money = 0
         # 今日进过直播间的人,只要是进入直播间的，名字就都记录下来
         self.today_comepeoplename:set = set()
-        # 今日直播间的所有人的普通发言信息（备查）
+        # 今日直播间的所有人的发言信息（备查）
         self.today_allpeoplemsg:list = []
+        # 普通用户弹幕记录列表
+        self.normal_danmu_data:list = []
+        # 上舰用户弹幕记录列表
+        self.captain_danmu_data:list = []
+        # 挂牌粉丝弹幕记录列表
+        self.fans_danmu_data:list = []
         # 今日直播间的所有礼物记录列表
         self.today_allgiftmsg:list = []
         # 今日直播间的所有上舰记录列表
@@ -37,6 +47,7 @@ class Blive(QObject):
         self.today_gold_message:list = []
         # 用户登录信息中的SESSDATA
         self.today_USER_SESSDATA = ''
+
 
     def initConnect(self):
         # 连接模型的心跳信号
@@ -82,8 +93,20 @@ class Blive(QObject):
     @Slot()
     def slot_recv_normalmsg(self,username,medal_name,medal_level,msg):
         # 接收数据模型传来的普通用户信息
-        # 将普通用户信息存储到List列表
+        # 将普通用户信息存储到统一的List列表中，用于持久化保存
         self.today_allpeoplemsg.append(username+medal_name+medal_level+msg)
+        # 将普通用户信息分门别类的保存到不同的信息List列表中
+        # 根据勋章名进行分类
+        if medal_name == "七七":
+            
+            pass
+        # 根据勋章等级进行分类
+        if medal_level > 10 :
+            pass
+        # 根据特别关注用户的名字进行分类
+        if username == "风辰天运生":
+            pass
+
         # msg处理部分移到UI界面绘制中
         # # 对msg进行处理，找到信息中所有的表情包标识
         # emojiname_list = re.findall(r'\[(.*?)\]', msg)
