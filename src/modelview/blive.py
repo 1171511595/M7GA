@@ -101,7 +101,7 @@ class Blive(QObject):
             
             pass
         # 根据勋章等级进行分类
-        if medal_level > 10 :
+        if int(medal_level) > 10 :
             pass
         # 根据特别关注用户的名字进行分类
         if username == "风辰天运生":
